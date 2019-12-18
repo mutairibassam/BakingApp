@@ -38,6 +38,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
 
     //okhttp3 used to see the communication between the app and the api in the logcat to debug easily
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
     implementation 'com.google.android.exoplayer:exoplayer:r2.4.0'
     implementation 'androidx.cardview:cardview:1.0.0'
