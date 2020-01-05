@@ -25,7 +25,6 @@ public class DataServiceGenerator {
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
             Log.d(TAG, "getRetrofit() method " + retrofit);
-
         }
 
         return retrofit;

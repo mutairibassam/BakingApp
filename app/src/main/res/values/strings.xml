@@ -2,4 +2,8 @@
     <string name="app_name">BakingApp</string>
     <string name="title_item_detail">Item Detail</string>
     <string name="ingredients_title_text">Ingredients</string>
+    <string name="Steps_title_text">Steps</string>
+    <string name="quantity_title_text">Quantity</string>
+    <string name="measure_title_text">Measure</string>
+    <string name="ingredient_title_text">Ingredient</string>
 </resources>
