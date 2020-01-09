@@ -6,4 +6,6 @@
     <string name="quantity_title_text">Quantity</string>
     <string name="measure_title_text">Measure</string>
     <string name="ingredient_title_text">Ingredient</string>
+    <string name="ingredients_key">ingredientsKey</string>
+    <string name="step_key">stepKey</string>
 </resources>

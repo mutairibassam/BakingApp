@@ -1,9 +1,12 @@
 package com.example.android.bakingapp.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Step {
+public class Step implements Parcelable {
 
     @SerializedName("id")
     @Expose
@@ -20,13 +23,31 @@ public class Step {
     @SerializedName("thumbnailURL")
     @Expose
     private String thumbnailURL;
+    public final static Parcelable.Creator<Step> CREATOR = new Creator<Step>() {
 
-    public Step(Integer id, String shortDescription, String description, String videoURL, String thumbnailURL) {
-        this.id = id;
-        this.shortDescription = shortDescription;
-        this.description = description;
-        this.videoURL = videoURL;
-        this.thumbnailURL = thumbnailURL;
+
+        @SuppressWarnings({
+                "unchecked"
+        })
+        public Step createFromParcel(Parcel in) {
+            return new Step(in);
+        }
+
+        public Step[] newArray(int size) {
+            return (new Step[size]);
+        }
+
+    };
+
+    protected Step(Parcel in) {
+        this.id = ((Integer) in.readValue((Integer.class.getClassLoader())));
+        this.shortDescription = ((String) in.readValue((String.class.getClassLoader())));
+        this.description = ((String) in.readValue((String.class.getClassLoader())));
+        this.videoURL = ((String) in.readValue((String.class.getClassLoader())));
+        this.thumbnailURL = ((String) in.readValue((String.class.getClassLoader())));
+    }
+
+    public Step() {
     }
 
     public Integer getId() {
@@ -67,5 +88,17 @@ public class Step {
 
     public void setThumbnailURL(String thumbnailURL) {
         this.thumbnailURL = thumbnailURL;
+    }
+
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(id);
+        dest.writeValue(shortDescription);
+        dest.writeValue(description);
+        dest.writeValue(videoURL);
+        dest.writeValue(thumbnailURL);
+    }
+
+    public int describeContents() {
+        return 0;
     }
 }

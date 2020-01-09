@@ -53,9 +53,6 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
     public void onBindViewHolder(@NonNull IngredientAdapterViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: ");
 
-//        holder.mQuantity.setText(ingredientList.get(position).getQuantity());
-//        holder.mTitleIngredient.setText(mIngredients.get(position).getIngredients());
-
         // Casting Double value to string
         String mQuantity = Double.toString(ingredientList.get(position).getQuantity());
         holder.mQuantity.setText(mQuantity);

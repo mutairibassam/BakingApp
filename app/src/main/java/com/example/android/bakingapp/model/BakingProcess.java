@@ -47,6 +47,7 @@ public class BakingProcess implements Parcelable {
         }
         name = in.readString();
         ingredients = in.createTypedArrayList(Ingredients.CREATOR);
+        steps = in.createTypedArrayList(Step.CREATOR);
         if (in.readByte() == 0) {
             servings = null;
         } else {
@@ -130,6 +131,8 @@ public class BakingProcess implements Parcelable {
         }
         parcel.writeString(name);
         parcel.writeTypedList(ingredients);
+        parcel.writeTypedList(steps);
+
         if (servings == null) {
             parcel.writeByte((byte) 0);
         } else {

@@ -7,8 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.android.bakingapp.DetailActivity;
 import com.example.android.bakingapp.R;
 import com.example.android.bakingapp.model.BakingProcess;
@@ -43,10 +45,10 @@ public class BakingAdapter extends RecyclerView.Adapter<BakingAdapter.BakingAdap
                 @Override
                 public void onClick(View view) {
                     int position = getAdapterPosition();
-                    if(position != RecyclerView.NO_POSITION) {
+                    if (position != RecyclerView.NO_POSITION) {
                         BakingProcess item = mNumberOfItems.get(position);
                         Intent intent = new Intent(mContext, DetailActivity.class);
-                        intent.putExtra("ingredients", item);
+                        intent.putExtra(mContext.getString(R.string.ingredients_key), item);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         mContext.startActivity(intent);
 
@@ -56,8 +58,6 @@ public class BakingAdapter extends RecyclerView.Adapter<BakingAdapter.BakingAdap
 
         }
     }
-
-    //################### Methods ########################//
 
     @NonNull
     @Override
