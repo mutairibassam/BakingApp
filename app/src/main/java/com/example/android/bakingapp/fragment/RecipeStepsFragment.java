@@ -26,15 +26,18 @@ public class RecipeStepsFragment extends Fragment {
     public RecipeStepsFragment() {
     }
 
+//    /**
+//     *Interface to communicate between fragments
+//     */
 //    OnImageClickListener mCallback;
 //
 //    public interface OnImageClickListener {
 //        void onImageSelected(int position);
 //    }
-
-    /**
-     * to make sure the host activity implement the callback
-     */
+//
+//    /**
+//     * to make sure the host activity implement the callback
+//     */
 //    @Override
 //    public void onAttach(@NonNull Context context) {
 //        super.onAttach(context);
@@ -57,10 +60,12 @@ public class RecipeStepsFragment extends Fragment {
     private List<Step> stepList;
     private StepAdapter stepAdapter;
 
+    private Step step;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_recipe_list, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_recipe_list, container, false);
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
@@ -80,7 +85,10 @@ public class RecipeStepsFragment extends Fragment {
 
         }
 
+
+
         return rootView;
 
     }
+
 }

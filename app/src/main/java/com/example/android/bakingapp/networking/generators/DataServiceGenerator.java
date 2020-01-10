@@ -2,12 +2,8 @@ package com.example.android.bakingapp.networking.generators;
 
 import android.util.Log;
 
-import com.example.android.bakingapp.R;
 import com.example.android.bakingapp.networking.Routes;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 

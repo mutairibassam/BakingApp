@@ -8,4 +8,5 @@
     <string name="ingredient_title_text">Ingredient</string>
     <string name="ingredients_key">ingredientsKey</string>
     <string name="step_key">stepKey</string>
+    <string name="video_key">videoKey</string>
 </resources>

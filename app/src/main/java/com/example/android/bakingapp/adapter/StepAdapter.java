@@ -5,16 +5,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.bakingapp.R;
+import com.example.android.bakingapp.fragment.RecipeStepsVideoFragment;
 import com.example.android.bakingapp.model.Step;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepAdapterViewHolder> {
@@ -38,9 +39,6 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepAdapterVie
 
             view = itemView;
             mDesc = itemView.findViewById(R.id.description_step_row_item_id);
-//            mShortDesc = itemView.findViewById(R.id.shortDescription_step_row_item_id);
-//            mVideoURL = itemView.findViewById(R.id.videoURL_step_row_item_id);
-//            mThumbnailURL = itemView.findViewById(R.id.thumbnailURL_step_row_item_id);
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -48,8 +46,15 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepAdapterVie
                     int position = getAdapterPosition();
                     if(position != RecyclerView.NO_POSITION) {
                         Step item = stepList.get(position);
+                        RecipeStepsVideoFragment recipeStepsVideoFragment = new RecipeStepsVideoFragment();
                         Bundle bundle = new Bundle();
-                        bundle.putParcelable("recipeVideo", item);
+                        bundle.putParcelable(view.getContext().getString(R.string.video_key), item);
+                        recipeStepsVideoFragment.setArguments(bundle);
+
+                        FragmentManager fragmentManager = ((FragmentActivity) view.getContext()).getSupportFragmentManager();
+                        fragmentManager.beginTransaction().replace(R.id.fragment_recipe_list_id, recipeStepsVideoFragment)
+                                .commit();
+
                     }
                 }
             });
@@ -69,20 +74,11 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepAdapterVie
     @Override
     public void onBindViewHolder(@NonNull StepAdapterViewHolder holder, int position) {
         holder.mDesc.setText(stepList.get(position).getDescription());
-
-//        String videoURL = stepList.get(position).getVideoURL();
-//        holder.mVideoURL.setText(videoURL);
-//        Linkify.addLinks(holder.mVideoURL, Linkify.WEB_URLS);
-//        Glide.with(mContext).load(videoURL).placeholder(R.drawable.ic_launcher_background).into(holder.mVideoURL);
-
-//        String thumbnailURL = stepList.get(position).getThumbnailURL();
-//        holder.mThumbnailURL.setText(thumbnailURL);
-//        Linkify.addLinks(holder.mThumbnailURL, Linkify.WEB_URLS);
-//        Glide.with(mContext).load(thumbnailURL).placeholder(R.drawable.ic_launcher_foreground).into(holder.mThumbnailURL);
     }
 
     @Override
     public int getItemCount() {
         return stepList.size();
     }
+
 }
