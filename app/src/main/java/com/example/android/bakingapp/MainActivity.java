@@ -50,8 +50,8 @@ public class MainActivity  extends AppCompatActivity {
 
                 mRecyclerView = findViewById(R.id.recycler_view_id);
                 mBakingAdapter = new BakingAdapter(getApplicationContext(), mBakingProcessList);
-                mRecyclerView.setAdapter(mBakingAdapter);
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                mRecyclerView.setAdapter(mBakingAdapter);
 
             }
 

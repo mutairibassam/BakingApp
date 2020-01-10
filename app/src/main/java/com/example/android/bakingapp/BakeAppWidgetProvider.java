@@ -32,6 +32,7 @@ public class BakeAppWidgetProvider extends AppWidgetProvider {
         views.setOnClickPendingIntent(R.id.appwidget_title, pendingIntent);
         views.setOnClickPendingIntent(R.id.appwidget_list, pendingIntent);
 
+
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
