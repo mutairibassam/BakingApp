@@ -31,10 +31,11 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepAdapterVie
     public class StepAdapterViewHolder extends RecyclerView.ViewHolder {
 
         TextView mDesc;
+        boolean mTwoPane;
 
         final View view;
 
-        public StepAdapterViewHolder(@NonNull View itemView) {
+        public StepAdapterViewHolder(@NonNull final View itemView) {
             super(itemView);
 
             view = itemView;
@@ -43,19 +44,37 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepAdapterVie
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    int position = getAdapterPosition();
-                    if(position != RecyclerView.NO_POSITION) {
-                        Step item = stepList.get(position);
-                        RecipeStepsVideoFragment recipeStepsVideoFragment = new RecipeStepsVideoFragment();
-                        Bundle bundle = new Bundle();
-                        bundle.putParcelable(view.getContext().getString(R.string.video_key), item);
-                        recipeStepsVideoFragment.setArguments(bundle);
+                    if(itemView.findViewById(R.id.fragment_container_detail) != null) {
+                        mTwoPane = true;
 
-                        FragmentManager fragmentManager = ((FragmentActivity) view.getContext()).getSupportFragmentManager();
-                        fragmentManager.beginTransaction().replace(R.id.fragment_recipe_list_id, recipeStepsVideoFragment)
-                                .commit();
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION) {
+                            Step item = stepList.get(position);
+                            RecipeStepsVideoFragment recipeStepsVideoFragment = new RecipeStepsVideoFragment();
+                            Bundle bundle = new Bundle();
+                            bundle.putParcelable(view.getContext().getString(R.string.video_key), item);
+                            recipeStepsVideoFragment.setArguments(bundle);
 
+                            FragmentManager fragmentManager = ((FragmentActivity) view.getContext()).getSupportFragmentManager();
+                            fragmentManager.beginTransaction().add(R.id.fragment_container_detail, recipeStepsVideoFragment)
+                                    .commit();
+                        }
+                    } else {
+                        mTwoPane = false;
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION) {
+                            Step item = stepList.get(position);
+                            RecipeStepsVideoFragment recipeStepsVideoFragment = new RecipeStepsVideoFragment();
+                            Bundle bundle = new Bundle();
+                            bundle.putParcelable(view.getContext().getString(R.string.video_key), item);
+                            recipeStepsVideoFragment.setArguments(bundle);
+
+                            FragmentManager fragmentManager = ((FragmentActivity) view.getContext()).getSupportFragmentManager();
+                            fragmentManager.beginTransaction().replace(R.id.fragment_recipe_list_id, recipeStepsVideoFragment)
+                                    .commit();
+                        }
                     }
+
                 }
             });
 
