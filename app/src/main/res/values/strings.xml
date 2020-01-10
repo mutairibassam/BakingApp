@@ -9,4 +9,6 @@
     <string name="ingredients_key">ingredientsKey</string>
     <string name="step_key">stepKey</string>
     <string name="video_key">videoKey</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>
