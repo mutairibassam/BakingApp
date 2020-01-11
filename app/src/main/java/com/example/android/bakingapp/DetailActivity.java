@@ -32,7 +32,7 @@ public class DetailActivity extends AppCompatActivity {
     String recipeName;
     List<Ingredients> listOfIngredients;
 
-    private boolean mTwoPane;
+    public static boolean mTwoPane;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,14 +42,13 @@ public class DetailActivity extends AppCompatActivity {
         linearLayout = findViewById(R.id.recipe_detail);
 
 
-            Intent intentCameFromBakingAdapter = getIntent();
-            ingredients = getIntent().getParcelableExtra(getString(R.string.ingredients_key));
-            listOfIngredients = ingredients.getIngredients();
-            id = ingredients.getId();
-            recipeName = ingredients.getName();
+        Intent intentCameFromBakingAdapter = getIntent();
+        ingredients = getIntent().getParcelableExtra(getString(R.string.ingredients_key));
+        listOfIngredients = ingredients.getIngredients();
+        id = ingredients.getId();
+        recipeName = ingredients.getName();
 
-
-        if (findViewById(R.id.fragment_recipe_list_id) != null) {
+        if (findViewById(R.id.fragmentipad_recipe_list_id) != null) {
 
             mTwoPane = true;
             if (intentCameFromBakingAdapter.hasExtra(getString(R.string.ingredients_key))) {
@@ -64,35 +63,35 @@ public class DetailActivity extends AppCompatActivity {
                 boolean fragmentPoppedTablet = fragmentManagerTablet.popBackStackImmediate(backStackNameForTablet, 0);
                 if (!fragmentPoppedTablet) {
                     fragmentManagerTablet.beginTransaction()
-                            .replace(R.id.fragment_recipe_list_id, recipeStepsFragmentForTablet, backStackNameForTablet)
+                            .add(R.id.fragmentipad_recipe_list_id, recipeStepsFragmentForTablet, backStackNameForTablet)
                             .addToBackStack(backStackNameForTablet)
                             .commit();
-
-                } else {
-                    mTwoPane = false;
-                    if (intentCameFromBakingAdapter.hasExtra(getString(R.string.ingredients_key))) {
-                        ingredients = getIntent().getParcelableExtra(getString(R.string.ingredients_key));
-                        RecipeStepsFragment recipeStepsFragment = new RecipeStepsFragment();
-                        Bundle bundle = new Bundle();
-                        bundle.putParcelable(getString(R.string.step_key), ingredients);
-                        recipeStepsFragment.setArguments(bundle);
-
-                        String backStackName = getClass().getName();
-                        FragmentManager fragmentManager = getSupportFragmentManager();
-                        boolean fragmentPopped = fragmentManager.popBackStackImmediate(backStackName, 0);
-                        if (!fragmentPopped) {
-                            fragmentManager.beginTransaction()
-                                    .replace(R.id.fragment_recipe_list_id, recipeStepsFragment, backStackName)
-                                    .addToBackStack(backStackName)
-                                    .commit();
-                        }
-                    }
                 }
 
-
             }
+        }   else {
+                mTwoPane = false;
+                if (intentCameFromBakingAdapter.hasExtra(getString(R.string.ingredients_key))) {
+                    ingredients = getIntent().getParcelableExtra(getString(R.string.ingredients_key));
+                    RecipeStepsFragment recipeStepsFragment = new RecipeStepsFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable(getString(R.string.step_key), ingredients);
+                    recipeStepsFragment.setArguments(bundle);
+
+                    String backStackName = getClass().getName();
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    boolean fragmentPopped = fragmentManager.popBackStackImmediate(backStackName, 0);
+                    if (!fragmentPopped) {
+                        fragmentManager.beginTransaction()
+                                .add(R.id.fragment_recipe_list_id, recipeStepsFragment, backStackName)
+                                .addToBackStack(backStackName)
+                                .commit();
+                    }
+                }
+            }
+
+
         }
-    }
 
     private String ingredientToString() {
         StringBuilder result = new StringBuilder();

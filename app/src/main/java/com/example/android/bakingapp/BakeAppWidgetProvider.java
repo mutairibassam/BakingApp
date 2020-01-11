@@ -16,10 +16,6 @@ public class BakeAppWidgetProvider extends AppWidgetProvider {
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
-//        CharSequence widgetText = context.getString(R.string.appwidget_text);
-        // Construct the RemoteViews object
-//        views.setTextViewText(R.id.appwidget_text, widgetText);
-
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.bake_app_widget_provider);
 
         SharedPreferences sharedPreferences = context.getSharedPreferences(BuildConfig.APPLICATION_ID, Context.MODE_PRIVATE);

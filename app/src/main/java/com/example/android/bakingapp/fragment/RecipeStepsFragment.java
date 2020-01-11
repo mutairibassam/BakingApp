@@ -26,29 +26,6 @@ public class RecipeStepsFragment extends Fragment {
     public RecipeStepsFragment() {
     }
 
-//    /**
-//     *Interface to communicate between fragments
-//     */
-//    OnImageClickListener mCallback;
-//
-//    public interface OnImageClickListener {
-//        void onImageSelected(int position);
-//    }
-//
-//    /**
-//     * to make sure the host activity implement the callback
-//     */
-//    @Override
-//    public void onAttach(@NonNull Context context) {
-//        super.onAttach(context);
-//
-//        try {
-//            mCallback = (OnImageClickListener) context;
-//        } catch (ClassCastException e) {
-//            throw new ClassCastException(context.toString() + "must implement OnImageClickListener");
-//        }
-//    }
-
     private Context mContext;
 
     private RecyclerView ingredientRecyclerView;

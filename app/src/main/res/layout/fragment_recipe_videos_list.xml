@@ -15,6 +15,11 @@
     <TextView
         android:id="@+id/desc_id"
         android:layout_width="match_parent"
+        android:layout_margin="8dp"
+        android:textSize="24dp"
+        android:textColor="@color/black"
+        android:text="Test"
+        android:layout_gravity="center_vertical|end"
         android:layout_height="0dp"
         android:layout_weight="60"/>
 

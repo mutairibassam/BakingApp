@@ -31,6 +31,9 @@ import java.util.List;
 
 public class RecipeStepsVideoFragment extends Fragment {
 
+    public static final String LIST_VIDEO = "list_video";
+    public static final String LIST_DESC = "list_desk";
+
     private Context mContext;
     private Step step;
     private List<Step> stepList;
@@ -39,12 +42,18 @@ public class RecipeStepsVideoFragment extends Fragment {
     private SimpleExoPlayerView simpleExoPlayerView;
 
     String videoUrl;
+    String descList;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_recipe_videos_list, container, false);
+
+        if(savedInstanceState != null) {
+            videoUrl = savedInstanceState.getString(LIST_VIDEO);
+            descList = savedInstanceState.getString(LIST_DESC);
+        }
 
         TextView desc = rootView.findViewById(R.id.desc_id);
         simpleExoPlayerView = rootView.findViewById(R.id.playerView);
@@ -66,7 +75,6 @@ public class RecipeStepsVideoFragment extends Fragment {
                 simpleExoPlayerView.setVisibility(View.GONE);
             }
         } else {
-            Bundle extra = getActivity().getIntent().getExtras();
             String video = step.getVideoURL();
             String descList = step.getDescription();
             desc.setText(descList);
@@ -116,4 +124,12 @@ public class RecipeStepsVideoFragment extends Fragment {
         super.onDestroyView();
         releasePlayer();
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putString(LIST_VIDEO, videoUrl);
+        outState.putString(LIST_DESC, descList);
+    }
+
+
 }
