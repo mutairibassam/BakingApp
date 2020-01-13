@@ -61,21 +61,30 @@ public class DetailActivity extends AppCompatActivity {
                     recipeStepsFragmentForTablet.setArguments(bundle);
 
                     FragmentManager fragmentManagerTablet = getSupportFragmentManager();
-                    fragmentManagerTablet.beginTransaction()
-                            .add(R.id.fragmentipad_recipe_list_id, recipeStepsFragmentForTablet, "tag")
-//                            .addToBackStack(backStackNameForTablet)
-                            .commit();
-                } else {
-                    mTwoPane = false;
-                    RecipeStepsFragment recipeStepsFragment = new RecipeStepsFragment();
-                    bundle.putParcelable(getString(R.string.step_key), ingredients);
-                    recipeStepsFragment.setArguments(bundle);
+//                    fragmentManagerTablet.beginTransaction()
+//                            .replace(R.id.fragmentipad_recipe_list_id, recipeStepsFragmentForTablet)
+//                            .commit();
 
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    fragmentManager.beginTransaction()
-                            .replace(R.id.fragment_recipe_list_id, recipeStepsFragment)
+                    String backStackNameForTablet = getClass().getName();
+                    boolean fragmentPoppedTablet = fragmentManagerTablet.popBackStackImmediate(backStackNameForTablet, 0);
+                    if (!fragmentPoppedTablet) {
+                        fragmentManagerTablet.beginTransaction()
+                                .replace(R.id.fragmentipad_recipe_list_id, recipeStepsFragmentForTablet, backStackNameForTablet)
+                                .addToBackStack(backStackNameForTablet)
+                                .commit();
+
+                    } else {
+                        mTwoPane = false;
+                        RecipeStepsFragment recipeStepsFragment = new RecipeStepsFragment();
+                        bundle.putParcelable(getString(R.string.step_key), ingredients);
+                        recipeStepsFragment.setArguments(bundle);
+
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.fragment_recipe_list_id, recipeStepsFragment)
 //                                .addToBackStack(backStackName)
-                            .commit();
+                                .commit();
+                    }
                 }
             }
         }
@@ -118,7 +127,7 @@ public class DetailActivity extends AppCompatActivity {
                         .apply();
 
                 item.setIcon(R.drawable.ic_favorite_border_white_24dp);
-                Snackbar.make(linearLayout, "Widget Recipe Removed", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(findViewById(android.R.id.content), "Widget Recipe Removed", Snackbar.LENGTH_SHORT).show();
             }
             // if recipe not in widget, then add it
             else{
@@ -130,7 +139,7 @@ public class DetailActivity extends AppCompatActivity {
                         .apply();
 
                 item.setIcon(R.drawable.ic_favorite_white_24dp);
-                Snackbar.make(linearLayout, "Widget Recipe Added", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(findViewById(android.R.id.content), "Widget Recipe Added", Snackbar.LENGTH_SHORT).show();
             }
 
             // Put changes on the Widget

@@ -59,9 +59,8 @@ public class RecipeStepsVideoFragment extends Fragment {
 
 
 //        if(savedInstanceState != null) {
-//            simpleExoPlayer = savedInstanceState.getseek("boo");
-//            simpleExoPlayer.seekTo(currentWindow, playbackPosition);
-//            simpleExoPlayerView.setPlayer(simpleExoPlayer);
+//            playWhenReady = savedInstanceState.getBoolean("boo");
+//            currentWindow = savedInstanceState.getInt("int");
 //
 //        }
 
@@ -107,16 +106,6 @@ public class RecipeStepsVideoFragment extends Fragment {
         return rootView;
 
     }
-
-    private void next() {
-        stepid++;
-
-    }
-
-    private void back() {
-        stepid--;
-    }
-
 
     private void initializePlayer(Uri mediaUri) {
 
@@ -168,22 +157,22 @@ public class RecipeStepsVideoFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        if (Util.SDK_INT >= 24) {
-            initializePlayer(Uri.parse(videoUrl));
-        }
-    }
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        if (Util.SDK_INT >= Build.VERSION_CODES.M) {
+//            initializePlayer(Uri.parse(videoUrl));
+//        }
+//    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-//        hideSystemUi();
-        if ((Util.SDK_INT < 24 || simpleExoPlayer == null)) {
-            initializePlayer(Uri.parse(videoUrl));
-        }
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+////        hideSystemUi();
+//        if (simpleExoPlayer == null) {
+//            initializePlayer(Uri.parse(videoUrl));
+//        }
+//    }
 
 //    @SuppressLint("InlinedApi")
 //    private void hideSystemUi() {

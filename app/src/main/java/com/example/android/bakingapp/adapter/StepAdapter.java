@@ -59,7 +59,7 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepAdapterVie
                     recipeStepsVideoFragment.setArguments(bundle);
 
                     FragmentManager fragmentManager = ((FragmentActivity) view.getContext()).getSupportFragmentManager();
-                    fragmentManager.beginTransaction().add(R.id.fragment_container_detail, recipeStepsVideoFragment)
+                    fragmentManager.beginTransaction().replace(R.id.fragment_container_detail, recipeStepsVideoFragment)
                             .commit();
                 }
             }   else {
