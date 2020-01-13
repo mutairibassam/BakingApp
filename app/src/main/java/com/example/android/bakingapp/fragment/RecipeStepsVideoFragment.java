@@ -58,12 +58,6 @@ public class RecipeStepsVideoFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_recipe_videos_list, container, false);
 
 
-//        if(savedInstanceState != null) {
-//            playWhenReady = savedInstanceState.getBoolean("boo");
-//            currentWindow = savedInstanceState.getInt("int");
-//
-//        }
-
             desc = rootView.findViewById(R.id.desc_id);
             simpleExoPlayerView = rootView.findViewById(R.id.playerView);
 //            navBack = rootView.findViewById(R.id.nav_back);
@@ -156,6 +150,15 @@ public class RecipeStepsVideoFragment extends Fragment {
             releasePlayer();
         }
     }
+
+
+
+
+
+
+
+
+
 
 //    @Override
 //    public void onStart() {

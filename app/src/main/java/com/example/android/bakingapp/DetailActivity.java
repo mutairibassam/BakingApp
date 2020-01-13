@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.android.bakingapp.fragment.RecipeStepsFragment;
@@ -61,9 +62,6 @@ public class DetailActivity extends AppCompatActivity {
                     recipeStepsFragmentForTablet.setArguments(bundle);
 
                     FragmentManager fragmentManagerTablet = getSupportFragmentManager();
-//                    fragmentManagerTablet.beginTransaction()
-//                            .replace(R.id.fragmentipad_recipe_list_id, recipeStepsFragmentForTablet)
-//                            .commit();
 
                     String backStackNameForTablet = getClass().getName();
                     boolean fragmentPoppedTablet = fragmentManagerTablet.popBackStackImmediate(backStackNameForTablet, 0);
@@ -73,22 +71,26 @@ public class DetailActivity extends AppCompatActivity {
                                 .addToBackStack(backStackNameForTablet)
                                 .commit();
 
-                    } else {
+                    }
+                }
+                else {
+                        //mobile
                         mTwoPane = false;
                         RecipeStepsFragment recipeStepsFragment = new RecipeStepsFragment();
+                        String backStackName = getClass().getName();
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        boolean fragmentPopped = fragmentManager.popBackStackImmediate(backStackName, 0);
                         bundle.putParcelable(getString(R.string.step_key), ingredients);
                         recipeStepsFragment.setArguments(bundle);
-
-                        FragmentManager fragmentManager = getSupportFragmentManager();
-                        fragmentManager.beginTransaction()
-                                .replace(R.id.fragment_recipe_list_id, recipeStepsFragment)
-//                                .addToBackStack(backStackName)
-                                .commit();
+                        if (!fragmentPopped) {
+                            fragmentManager.beginTransaction()
+                                    .replace(R.id.fragment_recipe_list_id, recipeStepsFragment)
+                                    .commit();
+                        }
                     }
                 }
             }
         }
-    }
 
     private String ingredientToString() {
         StringBuilder result = new StringBuilder();
@@ -155,9 +157,4 @@ public class DetailActivity extends AppCompatActivity {
 
     }
 
-//    @Override
-//    public void onSaveInstanceState(@NonNull Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//
-//    }
 }
