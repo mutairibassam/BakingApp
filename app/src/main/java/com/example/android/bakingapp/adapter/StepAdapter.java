@@ -32,6 +32,7 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepAdapterVie
     public class StepAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView mDesc;
+        int id;
 
         final View view;
 

@@ -23,4 +23,19 @@
         android:layout_height="0dp"
         android:layout_weight="60"/>
 
+<!--    <Button-->
+<!--        android:id="@+id/nav_back"-->
+<!--        android:text="Back"-->
+<!--        android:onClick="back"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"/>-->
+
+<!--        <Button-->
+<!--            android:id="@+id/nav_next"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:onClick="next"-->
+<!--            android:text="Next" />-->
+
 </LinearLayout>
