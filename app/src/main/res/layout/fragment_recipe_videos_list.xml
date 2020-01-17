@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <com.google.android.exoplayer2.ui.SimpleExoPlayerView
@@ -23,19 +22,25 @@
         android:layout_height="0dp"
         android:layout_weight="60"/>
 
-<!--    <Button-->
-<!--        android:id="@+id/nav_back"-->
-<!--        android:text="Back"-->
-<!--        android:onClick="back"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"/>-->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-<!--        <Button-->
-<!--            android:id="@+id/nav_next"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_alignParentEnd="true"-->
-<!--            android:onClick="next"-->
-<!--            android:text="Next" />-->
+        <Button
+            android:id="@+id/nav_back"
+            android:text="Back"
+            android:onClick="clickBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/nav_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:onClick="next"
+            android:text="Next" />
+
+    </RelativeLayout>
 
 </LinearLayout>

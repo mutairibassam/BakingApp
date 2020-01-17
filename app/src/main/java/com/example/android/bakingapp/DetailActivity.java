@@ -1,10 +1,12 @@
 package com.example.android.bakingapp;
 
+import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
@@ -12,11 +14,16 @@ import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.android.bakingapp.adapter.StepAdapter;
 import com.example.android.bakingapp.fragment.RecipeStepsFragment;
+import com.example.android.bakingapp.fragment.RecipeStepsVideoFragment;
 import com.example.android.bakingapp.model.BakingProcess;
 import com.example.android.bakingapp.model.Ingredients;
+import com.example.android.bakingapp.model.Step;
+import com.google.android.exoplayer2.C;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
@@ -30,6 +37,7 @@ public class DetailActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private LinearLayout linearLayout;
     String recipeName;
+
     List<Ingredients> listOfIngredients;
 
     public static boolean mTwoPane;
@@ -44,6 +52,7 @@ public class DetailActivity extends AppCompatActivity {
 
         ingredients = getIntent().getParcelableExtra(getString(R.string.ingredients_key));
         listOfIngredients = ingredients.getIngredients();
+
         id = ingredients.getId();
         recipeName = ingredients.getName();
         if (intentCameFromBakingAdapter.hasExtra(getString(R.string.ingredients_key))) {
@@ -87,6 +96,8 @@ public class DetailActivity extends AppCompatActivity {
                                     .replace(R.id.fragment_recipe_list_id, recipeStepsFragment)
                                     .commit();
                         }
+
+
                     }
                 }
             }
@@ -156,5 +167,30 @@ public class DetailActivity extends AppCompatActivity {
 
 
     }
+
+//
+//    @Override
+//    public void onNextClicked(int index) {
+//        index++;
+//        openFragment(index);
+//    }
+//
+//    @Override
+//    public void onPreClicked(int index) {
+//        index--;
+//        openFragment(index);
+//    }
+//
+//    private void openFragment(int index){
+//        RecipeStepsVideoFragment recipeStepsVideoFragment = new RecipeStepsVideoFragment();
+//        Bundle bundle = new Bundle();
+//        bundle.putParcelable(this.getString(R.string.video_key), ingredients);
+//        bundle.putInt("index", index);
+//        recipeStepsVideoFragment.setArguments(bundle);
+//        FragmentManager fragmentManager = this.getSupportFragmentManager();
+//        fragmentManager.beginTransaction().replace(R.id.fragment_recipe_list_id,
+//                recipeStepsVideoFragment)
+//                .commit();
+//    }
 
 }

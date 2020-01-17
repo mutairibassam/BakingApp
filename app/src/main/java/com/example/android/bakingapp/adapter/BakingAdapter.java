@@ -2,6 +2,8 @@ package com.example.android.bakingapp.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.android.bakingapp.DetailActivity;
 import com.example.android.bakingapp.R;
 import com.example.android.bakingapp.model.BakingProcess;
+import com.example.android.bakingapp.model.Step;
 
 import java.util.List;
 
@@ -35,7 +38,7 @@ public class BakingAdapter extends RecyclerView.Adapter<BakingAdapter.BakingAdap
 
         final View view;
 
-        public BakingAdapterViewHolder(@NonNull View itemView) {
+        public BakingAdapterViewHolder(@NonNull final View itemView) {
             super(itemView);
 
             mTitle = itemView.findViewById(R.id.item_title);

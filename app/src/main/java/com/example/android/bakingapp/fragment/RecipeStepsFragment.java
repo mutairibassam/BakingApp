@@ -53,16 +53,17 @@ public class RecipeStepsFragment extends Fragment {
             ingredientAdapter = new IngredientAdapter(mContext, ingredientsList);
             ingredientRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
             ingredientRecyclerView.setAdapter(ingredientAdapter);
+            ingredientAdapter.notifyDataSetChanged();
 
             stepList = bakingProcess.getSteps();
             stepRecyclerView = rootView.findViewById(R.id.recycler_view_steps_id);
             stepAdapter = new StepAdapter(mContext, stepList);
             stepRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
             stepRecyclerView.setAdapter(stepAdapter);
+            stepAdapter.notifyDataSetChanged();
+
 
         }
-
-
 
         return rootView;
 

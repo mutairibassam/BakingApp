@@ -1,6 +1,5 @@
 package com.example.android.bakingapp.fragment;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
@@ -10,10 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.android.bakingapp.R;
 import com.example.android.bakingapp.model.Step;
@@ -34,6 +36,8 @@ import java.util.List;
 
 public class RecipeStepsVideoFragment extends Fragment {
 
+    private static final String TAG = "RecipeStepsVideoFragmen";
+
     private Context mContext;
     private Step step;
     private List<Step> stepList;
@@ -45,60 +49,134 @@ public class RecipeStepsVideoFragment extends Fragment {
     private int currentWindow = 0;
     private long playbackPosition = 0;
 
-    private TextView desc;
+    private TextView descText;
     private Button navBack, navNext;
     private String videoUrl;
-    int stepid;
+    private Bundle bundle;
+    private Integer index;
 
+    private String video;
+    private String desc;
 
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_recipe_videos_list, container, false);
 
+        // initialization
+        descText = rootView.findViewById(R.id.desc_id);
+        simpleExoPlayerView = rootView.findViewById(R.id.playerView);
+        navBack = rootView.findViewById(R.id.nav_back);
+        navNext = rootView.findViewById(R.id.nav_next);
 
-            desc = rootView.findViewById(R.id.desc_id);
-            simpleExoPlayerView = rootView.findViewById(R.id.playerView);
-//            navBack = rootView.findViewById(R.id.nav_back);
-//            navNext = rootView.findViewById(R.id.nav_next);
+        //init method
+        init();
 
+        //click back
+        navBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickBack();
+                init();
+            }
+        });
 
-            Bundle bundle = this.getArguments();
-            if (bundle != null) {
+        navNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickNext();
+                init();
+            }
+        });
 
-                step = bundle.getParcelable(getString(R.string.video_key));
-                stepid = step.getId();
-                String video = step.getVideoURL();
-                String descList = step.getDescription();
+        return rootView;
 
-                desc.setText(descList);
+    }
 
-                if (!video.equals("")) {
+    private void init() {
+        bundle = this.getArguments();
+        if(bundle != null) {
+            step = bundle.getParcelable(getString(R.string.video_key));
+
+            setText();
+        }
+    }
+
+    private void setText() {
+        video = step.getVideoURL();
+        desc = step.getDescription();
+        descText.setText(desc);
+
+        checkVideo();
+    }
+
+    private void checkVideo() {
+
+        if(!video.equals("")) {
+            simpleExoPlayerView.setVisibility(View.VISIBLE);
+            videoUrl = video;
+            initializePlayer(Uri.parse(videoUrl));
+        } else {
+            simpleExoPlayerView.setVisibility(View.GONE);
+        }
+            if(video != null) {
+                if(!video.equals("")) {
+                    video = step.getVideoURL();
+                    desc = step.getDescription();
+                    descText.setText(desc);
                     simpleExoPlayerView.setVisibility(View.VISIBLE);
                     videoUrl = video;
                     initializePlayer(Uri.parse(videoUrl));
                 } else {
                     simpleExoPlayerView.setVisibility(View.GONE);
                 }
-            } else {
-                String video = step.getVideoURL();
-                String descList = step.getDescription();
-                desc.setText(descList);
-
-                if (video != null) {
-                    if (video.equals("")) {
-                        simpleExoPlayerView.setVisibility(View.VISIBLE);
-                        videoUrl = video;
-                        initializePlayer(Uri.parse(videoUrl));
-                    } else {
-                        simpleExoPlayerView.setVisibility(View.GONE);
-                    }
-                }
-
             }
-        return rootView;
+        }
 
+    private void clickBack() {
+
+            bundle = this.getArguments();
+            stepList = bundle.getParcelableArrayList(getContext().getString(R.string.array_key));
+            index = step.getId();
+        if (index == 0) {
+            String message = "This is the first step";
+            Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+        } else {
+            index--;
+            step = stepList.get(index);
+            RecipeStepsVideoFragment recipeStepsVideoFragment = new RecipeStepsVideoFragment();
+            bundle.putParcelable(getContext().getString(R.string.video_key), step);
+            recipeStepsVideoFragment.setArguments(bundle);
+
+            FragmentManager fragmentManager = ((FragmentActivity) getContext()).getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.fragment_recipe_list_id,
+                    recipeStepsVideoFragment)
+                    .commit();
+        }
+    }
+
+    private void clickNext() {
+        bundle = this.getArguments();
+        stepList = bundle.getParcelableArrayList(getContext().getString(R.string.array_key));
+        index = step.getId();
+        index++;
+        if (index == stepList.size()) {
+            String message = "This is the last step";
+            Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+        } else {
+            index--;
+            index++;
+            step = stepList.get(index);
+            RecipeStepsVideoFragment recipeStepsVideoFragment = new RecipeStepsVideoFragment();
+            bundle.putParcelable(getContext().getString(R.string.video_key), step);
+            recipeStepsVideoFragment.setArguments(bundle);
+
+            FragmentManager fragmentManager = ((FragmentActivity) getContext()).getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.fragment_recipe_list_id,
+                    recipeStepsVideoFragment)
+                    .commit();
+        }
     }
 
     private void initializePlayer(Uri mediaUri) {
@@ -150,15 +228,6 @@ public class RecipeStepsVideoFragment extends Fragment {
             releasePlayer();
         }
     }
-
-
-
-
-
-
-
-
-
 
 //    @Override
 //    public void onStart() {

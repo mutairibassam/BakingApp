@@ -2,6 +2,7 @@ package com.example.android.bakingapp.adapter;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +18,12 @@ import com.example.android.bakingapp.R;
 import com.example.android.bakingapp.fragment.RecipeStepsVideoFragment;
 import com.example.android.bakingapp.model.Step;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepAdapterViewHolder> {
 
+    private static final String TAG = "StepAdapter";
     private Context mContext;
     private List<Step> stepList;
 
@@ -48,7 +51,6 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepAdapterVie
 
         @Override
         public void onClick(View view) {
-
             if(DetailActivity.mTwoPane == true) {
                 int position = getAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
@@ -67,13 +69,15 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepAdapterVie
                 int position = getAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
                     Step item = stepList.get(position);
+                    List<Step> arrayList = stepList;
                     RecipeStepsVideoFragment recipeStepsVideoFragment = new RecipeStepsVideoFragment();
                     Bundle bundle = new Bundle();
                     bundle.putParcelable(view.getContext().getString(R.string.video_key), item);
+                    bundle.putParcelableArrayList(view.getContext().getString(R.string.array_key), (ArrayList<? extends Parcelable>) arrayList);
                     recipeStepsVideoFragment.setArguments(bundle);
-
                     FragmentManager fragmentManager = ((FragmentActivity) view.getContext()).getSupportFragmentManager();
-                    fragmentManager.beginTransaction().replace(R.id.fragment_recipe_list_id, recipeStepsVideoFragment)
+                    fragmentManager.beginTransaction().replace(R.id.fragment_recipe_list_id,
+                            recipeStepsVideoFragment)
                             .commit();
                 }
             }
