@@ -23,7 +23,6 @@
 
         <activity android:name=".fragment.RecipeStepsFragment" />
         <activity
-            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
